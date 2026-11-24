@@ -1,0 +1,51 @@
+[package]
+name = "vasilisa-site"
+version = "0.1.0"
+edition = "2021"
+description = "Сайт-визитка Василисы Офицеровой: разметка, контент и поведение на Rust."
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+maud = "0.27"
+
+# Browser-only dependencies: the native `prerender` binary and the tests never build them.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+# Must match the installed wasm-bindgen CLI exactly, hence the pin.
+wasm-bindgen = "=0.2.130"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = [
+  "AddEventListenerOptions",
+  "CanvasGradient",
+  "CanvasRenderingContext2d",
+  "CssStyleDeclaration",
+  "Document",
+  "DomRect",
+  "DomTokenList",
+  "Element",
+  "Event",
+  "EventTarget",
+  "HtmlAnchorElement",
+  "HtmlCanvasElement",
+  "HtmlDialogElement",
+  "HtmlElement",
+  "HtmlImageElement",
+  "KeyboardEvent",
+  "Location",
+  "MediaQueryList",
+  "MouseEvent",
+  "Navigator",
+  "Node",
+  "NodeList",
+  "Window",
+] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+# Только отладочная информация: секцию target_features читает wasm-bindgen.
+strip = "debuginfo"
