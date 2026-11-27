@@ -3,8 +3,8 @@
 use maud::{html, Markup, PreEscaped, DOCTYPE};
 
 use crate::content::{
-    CardBody, Messenger, PriceCard, PriceItem, Section, Shot, ShotLayout, Skill, ABOUT, BRAND,
-    FIRST_NAME, INSTAGRAM_HANDLE, INSTAGRAM_URL, MESSENGERS, MOTTO, PRICE_CARDS, PRINCIPLES, ROLE,
+    CardBody, Messenger, PriceCard, PriceItem, Section, Shot, ShotLayout, Skill, SkillIcon, ABOUT, BRAND,
+    FIRST_NAME, INSTAGRAM_HANDLE, INSTAGRAM_URL, MESSENGERS, MOTTO, PRICE_CARDS, ROLE,
     SHOTS, SHOW_MESSENGERS, SKILLS, SURNAME,
 };
 
@@ -129,7 +129,16 @@ fn services() -> Markup {
 fn skill_row(skill: &Skill) -> Markup {
     html! {
         li class="skill" {
-            svg class="skill__icon" viewBox="0 0 48 48" aria-hidden="true" { (PreEscaped(skill.icon)) }
+            @match skill.icon {
+                SkillIcon::Photo(src) => {
+                    span class="skill__icon skill__icon--photo" {
+                        img src=(src) alt="" loading="lazy" decoding="async";
+                    }
+                }
+                SkillIcon::Line(shapes) => {
+                    svg class="skill__icon skill__icon--line" viewBox="0 0 48 48" aria-hidden="true" { (PreEscaped(shapes)) }
+                }
+            }
             h3 { (skill.name) }
             div class="skill__body" {
                 p { (skill.text) }
@@ -150,11 +159,6 @@ fn about() -> Markup {
                 div class="about__text glass" {
                     h2 class="title" { "Обо мне" }
                     @for paragraph in ABOUT { p { (paragraph) } }
-                    dl class="principles" {
-                        @for (term, description) in PRINCIPLES {
-                            div { dt { (term) } dd { (description) } }
-                        }
-                    }
                 }
                 div class="about__side" {
                     figure class="portrait" {
@@ -166,7 +170,7 @@ fn about() -> Markup {
                         img class="portrait__bloom" src="assets/flora/yucca.webp" alt="" width="1500" height="984"
                             loading="lazy" data-depth=".05";
                     }
-                    p class="about__quote script" { "твой образ, твои правила" }
+                    p class="about__caption" { "Утром без борьбы с зеркалом" }
                 }
             }
         }
@@ -228,17 +232,17 @@ fn portfolio() -> Markup {
                 h2 class="title" { "Работы" }
                 p class="intro" { "Наведите на фото, чтобы узнать, что на нём сделано. Нажмите, чтобы рассмотреть ближе." }
                 ul class="shots" {
-                    @for (index, shot) in SHOTS.iter().enumerate() { (shot_tile(index + 1, shot)) }
+                    @for shot in SHOTS { (shot_tile(shot)) }
                 }
             }
         }
     }
 }
 
-fn shot_tile(number: usize, shot: &Shot) -> Markup {
+fn shot_tile(shot: &Shot) -> Markup {
     let (modifier, sizes) = match shot.layout {
         ShotLayout::Big => ("big", "(min-width: 900px) 50vw, 100vw"),
-        ShotLayout::Tall => ("tall", "(min-width: 900px) 25vw, 50vw"),
+        ShotLayout::Standard => ("standard", "(min-width: 900px) 25vw, 50vw"),
         ShotLayout::Top => ("top", "(min-width: 900px) 25vw, 50vw"),
     };
     let small = format!("assets/img/{}-700.webp", shot.slug);
@@ -250,7 +254,6 @@ fn shot_tile(number: usize, shot: &Shot) -> Markup {
                 img src=(small) srcset=(srcset) sizes=(sizes) width=(shot.width) height=(shot.height)
                     alt=(shot.alt) loading="lazy" decoding="async";
                 span class="shot__veil" {
-                    em { "№\u{a0}" (number) }
                     strong { (shot.caption) }
                 }
             }
@@ -362,12 +365,16 @@ mod tests {
     }
 
     #[test]
-    fn page_lists_every_shot_with_its_number() {
-        let html = page().into_string();
-        for (index, shot) in SHOTS.iter().enumerate() {
-            assert!(html.contains(shot.slug));
-            assert!(html.contains(&format!("№\u{a0}{}", index + 1)));
+    fn page_lists_shots_in_order_without_numbers() {
+        let html = portfolio().into_string();
+        let mut remaining = html.as_str();
+        for shot in SHOTS {
+            let asset = format!("assets/img/{}-1400.webp", shot.slug);
+            let position = remaining.find(&asset).expect("portfolio photo is missing or out of order");
+            remaining = &remaining[position + asset.len()..];
+            assert!(html.contains(shot.caption));
         }
+        assert!(!html.contains('№'));
     }
 
     #[test]

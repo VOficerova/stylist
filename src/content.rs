@@ -50,11 +50,16 @@ impl Section {
     }
 }
 
+/// Декоративная иллюстрация услуги.
+pub enum SkillIcon {
+    Photo(&'static str),
+    Line(&'static str),
+}
+
 /// Навык в секции «Что я умею».
 pub struct Skill {
     pub name: &'static str,
-    /// Содержимое SVG-иконки 48×48 (только фигуры, без тега `<svg>`).
-    pub icon: &'static str,
+    pub icon: SkillIcon,
     pub text: &'static str,
     pub tags: &'static [&'static str],
 }
@@ -63,43 +68,43 @@ pub struct Skill {
 pub const SKILLS: &[Skill] = &[
     Skill {
         name: "Окрашивание",
-        icon: r#"<path d="M8 26 H40 C40 35 33 41 24 41 C15 41 8 35 8 26 Z"/><path d="M28 26 L38 8"/><path d="M36.5 6.5 L40 8.5 L37 14 L33.5 12 Z"/><path d="M14 31 C17 34 22 35 26 34"/>"#,
+        icon: SkillIcon::Photo("assets/services/butterfly.webp"),
         text: "Ровный цвет от корней до кончиков. Подбираю оттенок под тон кожи и глаз, закрашиваю седину и отросшие корни, освежаю цвет по длине. Могу работать и с вашей краской.",
         tags: &["тон в тон", "корни", "седина", "своя краска"],
     },
     Skill {
         name: "Сложное окрашивание",
-        icon: r#"<path d="M12 6 C10 18 14 28 12 42"/><path d="M20 6 C18 18 23 28 21 42"/><path d="M28 6 C27 18 32 28 30 42"/><path d="M36 6 C35 18 39 28 38 42"/><path d="M9 20 L24 16 L41 21 L25 26 Z"/>"#,
+        icon: SkillIcon::Photo("assets/services/lily.webp"),
         text: "Многоступенчатая работа с цветом: осветление прядей, мягкие переходы и тонирование. Контуринг высветляет волосы у лица и подчёркивает его форму. Делаю так, чтобы цвет красиво отрастал без резкой границы.",
         tags: &["контуринг", "блики у лица", "растяжка цвета", "тонирование"],
     },
     Skill {
         name: "Стрижки",
-        icon: r#"<circle cx="13" cy="35" r="5"/><circle cx="35" cy="35" r="5"/><path d="M16.5 31 L34 6"/><path d="M31.5 31 L14 6"/><circle cx="24" cy="21" r=".9"/>"#,
+        icon: SkillIcon::Line(r#"<circle cx="13" cy="35" r="5"/><circle cx="35" cy="35" r="5"/><path d="M16.5 31 L34 6"/><path d="M31.5 31 L14 6"/><circle cx="24" cy="21" r=".9"/>"#),
         text: "Женские и мужские на любую длину. Форму подбираю под овал лица, густоту и то, как вы укладываете волосы каждый день: стрижка должна ложиться сама.",
         tags: &["женские", "мужские", "короткие", "длинные"],
     },
     Skill {
         name: "Укладка",
-        icon: r#"<path d="M6 14 C12 8 16 20 22 14 C28 8 32 20 38 14"/><path d="M8 25 C14 19 18 31 24 25 C30 19 34 31 42 25"/><path d="M6 36 C12 30 16 42 22 36 C28 30 32 42 38 36"/>"#,
+        icon: SkillIcon::Photo("assets/services/roses.webp"),
         text: "Гладкие волосы, прикорневой объём, мягкие волны или локоны. Дневная укладка лёгкая и подвижная, вечерняя держится весь праздник.",
         tags: &["дневная", "вечерняя", "волны", "объём"],
     },
     Skill {
         name: "Мейк",
-        icon: r#"<path d="M18 42 V24 H30 V42 Z"/><path d="M20 24 V14 C20 9 28 5 28 5 V24"/><path d="M18 30 H30"/>"#,
+        icon: SkillIcon::Photo("assets/services/vanilla.webp"),
         text: "От почти незаметного нюда до вечернего образа со стрелками и яркими губами. Работаю с тоном так, чтобы кожа оставалась живой, и учитываю свет, в котором вы будете: дневной, вечерний или съёмочный.",
         tags: &["нюд", "дневной", "вечерний"],
     },
     Skill {
         name: "Уходы",
-        icon: r#"<path d="M24 5 C24 5 11 20 11 30 C11 37 17 43 24 43 C31 43 37 37 37 30 C37 20 24 5 24 5 Z"/><path d="M18 31 C18 35 21 37 24 37"/>"#,
+        icon: SkillIcon::Photo("assets/services/watering-can.webp"),
         text: "Восстанавливающие процедуры для волос после осветления, окрашивания и горячих укладок. Возвращают плотность, мягкость и блеск; состав подбираю по состоянию волос.",
         tags: &["восстановление", "блеск", "после окрашивания"],
     },
     Skill {
         name: "Брови и ресницы",
-        icon: r#"<path d="M5 30 C13 20 35 20 43 30"/><path d="M5 30 C13 38 35 38 43 30"/><circle cx="24" cy="29" r="5"/><path d="M12 21 L9 15"/><path d="M19 18 L18 11"/><path d="M29 18 L30 11"/><path d="M36 21 L39 15"/><path d="M8 9 C18 3 30 3 40 8"/>"#,
+        icon: SkillIcon::Photo("assets/services/bow.webp"),
         text: "Коррекция формы и окрашивание бровей, окрашивание ресниц. Взгляд становится выразительнее, а утром можно обходиться без карандаша и туши.",
         tags: &["коррекция", "окрашивание бровей", "окрашивание ресниц"],
     },
@@ -109,12 +114,6 @@ pub const SKILLS: &[Skill] = &[
 pub const ABOUT: &[&str] = &[
     "Меня зовут Василиса. Я работаю с волосами и лицом как с одной картиной: сначала слушаю, какой вы хотите себя видеть, потом подбираю цвет, форму и макияж, которые это покажут.",
     "Мне важно, чтобы результат жил дольше одного вечера. Окрашивание должно красиво отрастать, стрижка должна укладываться дома за десять минут, а мейк должен оставаться вашим лицом.",
-];
-
-pub const PRINCIPLES: &[(&str, &str)] = &[
-    ("Цвет", "Подбираю оттенок под кожу, глаза и привычный уход."),
-    ("Форма", "Стрижка и укладка, с которыми вы справитесь сами."),
-    ("Лицо", "Мейк, который подчёркивает, а не перекрывает."),
 ];
 
 /// Цена в рублях: одна сумма или вилка «от и до».
@@ -259,8 +258,8 @@ pub const PRICE_CARDS: &[PriceCard] = &[
 pub enum ShotLayout {
     /// Двойная ширина и высота.
     Big,
-    /// Двойная высота.
-    Tall,
+    /// Одна ячейка с центральным кадрированием.
+    Standard,
     /// Одна ячейка, кадрируется по верхней части (лицо).
     Top,
 }
@@ -276,16 +275,12 @@ pub struct Shot {
     pub layout: ShotLayout,
 }
 
-// TODO(content): подписи временные — ждём от Василисы точные названия процедур по номерам.
 pub const SHOTS: &[Shot] = &[
-    Shot { slug: "creative-green", alt: "Креативный макияж: зелёные тени с сиреневым бликом и тёмные губы", caption: "Креативный мейк", small_width: 560, width: 1121, height: 1400, layout: ShotLayout::Big },
-    Shot { slug: "pink-mono", alt: "Макияж в розовых тонах с бордовой стрелкой", caption: "Мейк в розовых тонах", small_width: 393, width: 562, height: 1000, layout: ShotLayout::Tall },
-    Shot { slug: "beige-waves", alt: "Бежевый блонд, уложенный в мягкие волны", caption: "Бежевый блонд, волны", small_width: 525, width: 1050, height: 1400, layout: ShotLayout::Tall },
-    Shot { slug: "cherry", alt: "Длинные волосы глубокого вишнёвого цвета с чёлкой", caption: "Вишнёвый цвет", small_width: 525, width: 1050, height: 1400, layout: ShotLayout::Tall },
-    Shot { slug: "long-contour", alt: "Длинные волосы со светлыми прядями и лёгкими волнами", caption: "Светлые пряди на длинные волосы", small_width: 525, width: 1050, height: 1400, layout: ShotLayout::Tall },
-    Shot { slug: "smooth-blond", alt: "Длинные гладкие волосы с растяжкой в блонд", caption: "Блонд, гладкая укладка", small_width: 525, width: 1050, height: 1400, layout: ShotLayout::Tall },
-    Shot { slug: "red-lips", alt: "Вечерний макияж: графичные стрелки и красные губы", caption: "Вечерний мейк", small_width: 468, width: 855, height: 1280, layout: ShotLayout::Top },
-    Shot { slug: "nude-glow", alt: "Нюдовый макияж с сияющей кожей", caption: "Нюд", small_width: 468, width: 936, height: 1400, layout: ShotLayout::Top },
+    Shot { slug: "beige-waves", alt: "Бежевый блонд, уложенный в мягкие волны", caption: "Сложное окрашивание", small_width: 525, width: 1050, height: 1400, layout: ShotLayout::Big },
+    Shot { slug: "cherry", alt: "Длинные волосы глубокого вишнёвого цвета с чёлкой", caption: "Окрашивание тон в тон", small_width: 525, width: 1050, height: 1400, layout: ShotLayout::Standard },
+    Shot { slug: "red-lips", alt: "Графичные стрелки и красные губы", caption: "Мейк", small_width: 468, width: 855, height: 1280, layout: ShotLayout::Top },
+    Shot { slug: "mens-cut", alt: "Короткая мужская стрижка с плавным переходом по бокам", caption: "Мужская стрижка", small_width: 535, width: 1070, height: 1400, layout: ShotLayout::Top },
+    Shot { slug: "womens-cut", alt: "Женская стрижка со светлыми прядями и слоями по длине", caption: "Женская стрижка", small_width: 460, width: 921, height: 1400, layout: ShotLayout::Standard },
 ];
 
 /// Ссылка на мессенджер. `url: None` — ссылка ещё не получена, такой пункт не выводится.
