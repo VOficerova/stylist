@@ -9,6 +9,8 @@ pub const ROLE: &str = "Парикмахер-колорист и визажис�
 pub const MOTTO: &str = "Твой образ, твои правила, твоя красота.";
 pub const INSTAGRAM_URL: &str = "https://www.instagram.com/_oficerova_vasilisa_";
 pub const INSTAGRAM_HANDLE: &str = "@_oficerova_vasilisa_";
+pub const PHONE_LABEL: &str = "+7 925 046-85-19";
+pub const PHONE_URL: &str = "tel:+79250468519";
 
 /// Разделы страницы, на которые ведёт навигация.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -50,16 +52,10 @@ impl Section {
     }
 }
 
-/// Декоративная иллюстрация услуги.
-pub enum SkillIcon {
-    Photo(&'static str),
-    Line(&'static str),
-}
-
 /// Навык в секции «Что я умею».
 pub struct Skill {
     pub name: &'static str,
-    pub icon: SkillIcon,
+    pub icon: &'static str,
     pub text: &'static str,
     pub tags: &'static [&'static str],
 }
@@ -68,43 +64,43 @@ pub struct Skill {
 pub const SKILLS: &[Skill] = &[
     Skill {
         name: "Окрашивание",
-        icon: SkillIcon::Photo("assets/services/butterfly.webp"),
+        icon: "assets/services/butterfly.webp",
         text: "Ровный цвет от корней до кончиков. Подбираю оттенок под тон кожи и глаз, закрашиваю седину и отросшие корни, освежаю цвет по длине. Могу работать и с вашей краской.",
         tags: &["тон в тон", "корни", "седина", "своя краска"],
     },
     Skill {
         name: "Сложное окрашивание",
-        icon: SkillIcon::Photo("assets/services/lily.webp"),
+        icon: "assets/services/lily.webp",
         text: "Многоступенчатая работа с цветом: осветление прядей, мягкие переходы и тонирование. Контуринг высветляет волосы у лица и подчёркивает его форму. Делаю так, чтобы цвет красиво отрастал без резкой границы.",
         tags: &["контуринг", "блики у лица", "растяжка цвета", "тонирование"],
     },
     Skill {
         name: "Стрижки",
-        icon: SkillIcon::Line(r#"<circle cx="13" cy="35" r="5"/><circle cx="35" cy="35" r="5"/><path d="M16.5 31 L34 6"/><path d="M31.5 31 L14 6"/><circle cx="24" cy="21" r=".9"/>"#),
+        icon: "assets/services/scissors.webp",
         text: "Женские и мужские на любую длину. Форму подбираю под овал лица, густоту и то, как вы укладываете волосы каждый день: стрижка должна ложиться сама.",
         tags: &["женские", "мужские", "короткие", "длинные"],
     },
     Skill {
         name: "Укладка",
-        icon: SkillIcon::Photo("assets/services/roses.webp"),
+        icon: "assets/services/roses.webp",
         text: "Гладкие волосы, прикорневой объём, мягкие волны или локоны. Дневная укладка лёгкая и подвижная, вечерняя держится весь праздник.",
         tags: &["дневная", "вечерняя", "волны", "объём"],
     },
     Skill {
         name: "Мейк",
-        icon: SkillIcon::Photo("assets/services/vanilla.webp"),
+        icon: "assets/services/vanilla.webp",
         text: "От почти незаметного нюда до вечернего образа со стрелками и яркими губами. Работаю с тоном так, чтобы кожа оставалась живой, и учитываю свет, в котором вы будете: дневной, вечерний или съёмочный.",
         tags: &["нюд", "дневной", "вечерний"],
     },
     Skill {
         name: "Уходы",
-        icon: SkillIcon::Photo("assets/services/watering-can.webp"),
+        icon: "assets/services/watering-can.webp",
         text: "Восстанавливающие процедуры для волос после осветления, окрашивания и горячих укладок. Возвращают плотность, мягкость и блеск; состав подбираю по состоянию волос.",
         tags: &["восстановление", "блеск", "после окрашивания"],
     },
     Skill {
         name: "Брови и ресницы",
-        icon: SkillIcon::Photo("assets/services/bow.webp"),
+        icon: "assets/services/bow.webp",
         text: "Коррекция формы и окрашивание бровей, окрашивание ресниц. Взгляд становится выразительнее, а утром можно обходиться без карандаша и туши.",
         tags: &["коррекция", "окрашивание бровей", "окрашивание ресниц"],
     },

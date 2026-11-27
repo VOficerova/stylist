@@ -211,13 +211,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .skills { padding: clamp(8px, 2vw, 22px) clamp(18px, 3.4vw, 48px); }
 .skill { display: grid; grid-template-columns: clamp(44px, 4.6vw, 60px) minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; gap: clamp(16px, 3vw, 44px); padding: clamp(22px, 2.8vw, 38px) 0; border-top: 1px solid var(--hair); }
 .skill:first-child { border-top: 0; }
-.skill__icon { width: 100%; margin-top: 4px; }
-.skill__icon--line { height: auto; fill: none; stroke: var(--rose); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; transition: stroke .4s, rotate .7s var(--ease); }
-.skill__icon--photo { display: grid; place-items: center; aspect-ratio: 1; padding: 5px; border-radius: 10px; background: var(--ivory); isolation: isolate; }
-.skill__icon--photo img { width: 100%; height: 100%; min-height: 0; object-fit: contain; mix-blend-mode: multiply; }
+.skill__icon { width: 100%; aspect-ratio: 1; object-fit: contain; margin-top: 4px; }
 @media (prefers-reduced-motion: no-preference) {
-  .skill__icon--photo img { animation: skill-sway 6s ease-in-out infinite; }
-  .skill:nth-child(even) .skill__icon--photo img { animation-delay: -3s; }
+  .skill__icon { animation: skill-sway 6s ease-in-out infinite; }
+  .skill:nth-child(even) .skill__icon { animation-delay: -3s; }
 }
 @keyframes skill-sway {
   0%, 100% { transform: translateY(0) rotate(-2deg); }
@@ -228,7 +225,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .skill__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .skill__tags li { padding: 5px 12px; border: 1px solid var(--glass-line); border-radius: 8px; font-size: .9em; color: var(--ivory-soft); }
 .skill:hover h3 { color: var(--rose); }
-.skill:hover .skill__icon--line { stroke: var(--ivory); rotate: -8deg; }
 
 @media (max-width: 820px) {
   .skill { grid-template-columns: 40px minmax(0, 1fr); row-gap: 10px; }
@@ -243,9 +239,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .about__text .title + p { margin-top: 1.5em; }
 .about__side { display: grid; justify-items: center; gap: clamp(20px, 2vw, 32px); }
 .about__caption {
-  position: relative; z-index: 3; max-width: 90%; padding: 7px 16px;
-  border: 1px solid var(--glass-line); border-radius: 8px;
-  background: var(--night); color: var(--ivory); text-align: center; font-size: .92em;
+  position: relative; z-index: 3; max-width: 94%;
+  font-size: clamp(2rem, 1.45rem + 2.4vw, 3.3rem); text-align: center; text-wrap: balance;
+  rotate: -5deg; text-shadow: 0 2px 12px var(--night), 0 2px 26px var(--night);
 }
 
 /* No frame: the portrait belongs to the same world as everything else on the page. She stands

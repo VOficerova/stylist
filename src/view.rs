@@ -3,8 +3,8 @@
 use maud::{html, Markup, PreEscaped, DOCTYPE};
 
 use crate::content::{
-    CardBody, Messenger, PriceCard, PriceItem, Section, Shot, ShotLayout, Skill, SkillIcon, ABOUT, BRAND,
-    FIRST_NAME, INSTAGRAM_HANDLE, INSTAGRAM_URL, MESSENGERS, MOTTO, PRICE_CARDS, ROLE,
+    CardBody, Messenger, PriceCard, PriceItem, Section, Shot, ShotLayout, Skill, ABOUT, BRAND,
+    FIRST_NAME, INSTAGRAM_HANDLE, INSTAGRAM_URL, MESSENGERS, MOTTO, PHONE_LABEL, PHONE_URL, PRICE_CARDS, ROLE,
     SHOTS, SHOW_MESSENGERS, SKILLS, SURNAME,
 };
 
@@ -129,16 +129,7 @@ fn services() -> Markup {
 fn skill_row(skill: &Skill) -> Markup {
     html! {
         li class="skill" {
-            @match skill.icon {
-                SkillIcon::Photo(src) => {
-                    span class="skill__icon skill__icon--photo" {
-                        img src=(src) alt="" loading="lazy" decoding="async";
-                    }
-                }
-                SkillIcon::Line(shapes) => {
-                    svg class="skill__icon skill__icon--line" viewBox="0 0 48 48" aria-hidden="true" { (PreEscaped(shapes)) }
-                }
-            }
+            img class="skill__icon" src=(skill.icon) alt="" loading="lazy" decoding="async";
             h3 { (skill.name) }
             div class="skill__body" {
                 p { (skill.text) }
@@ -170,7 +161,7 @@ fn about() -> Markup {
                         img class="portrait__bloom" src="assets/flora/yucca.webp" alt="" width="1500" height="984"
                             loading="lazy" data-depth=".05";
                     }
-                    p class="about__caption" { "Утром без борьбы с зеркалом" }
+                    p class="about__caption script" { "Утром без борьбы с зеркалом" }
                 }
             }
         }
@@ -275,6 +266,10 @@ fn contacts() -> Markup {
                             span { (INSTAGRAM_HANDLE) }
                         }
                         div class="contacts__actions" {
+                            a class="btn" href=(PHONE_URL) {
+                                (icon(24, 22, "1.4", r#"<path d="M7 3 L10 8 L7.5 10.5 C9 13 11 15 13.5 16.5 L16 14 L21 17 V19 C21 20 20 21 19 21 C10 21 3 14 3 5 C3 4 4 3 5 3 Z"/>"#))
+                                span { (PHONE_LABEL) }
+                            }
                             // Скрыта, пока WASM не загрузился: без него QR не построить.
                             button class="btn" id="share-open" type="button" hidden {
                                 (icon(48, 22, "2.4", r#"<rect x="7" y="7" width="13" height="13" rx="2"/><rect x="28" y="7" width="13" height="13" rx="2"/><rect x="7" y="28" width="13" height="13" rx="2"/><path d="M28 28 H34 V34 M41 28 V30 M28 41 H30 M36 41 H41 V36"/>"#))
