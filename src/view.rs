@@ -52,7 +52,7 @@ fn head() -> Markup {
             link rel="preload" href="assets/fonts/oranienbaum-cyrillic.woff2" as="font" type="font/woff2" crossorigin;
             link rel="preload" href="assets/fonts/great-vibes-cyrillic.woff2" as="font" type="font/woff2" crossorigin;
             link rel="stylesheet" href="css/fonts.css";
-            link rel="stylesheet" href="css/style.css";
+            link rel="stylesheet" href="css/style.css?v=20261128";
             script type="module" src="boot.js" {}
         }
     }
@@ -129,7 +129,7 @@ fn services() -> Markup {
 fn skill_row(skill: &Skill) -> Markup {
     html! {
         li class="skill" {
-            img class="skill__icon" src=(skill.icon) alt="" loading="lazy" decoding="async";
+            img class="skill__icon" src=(format!("{}?v=transparent", skill.icon)) alt="" loading="lazy" decoding="async";
             h3 { (skill.name) }
             div class="skill__body" {
                 p { (skill.text) }
@@ -161,7 +161,7 @@ fn about() -> Markup {
                         img class="portrait__bloom" src="assets/flora/yucca.webp" alt="" width="1500" height="984"
                             loading="lazy" data-depth=".05";
                     }
-                    p class="about__caption script" { "Утром без борьбы с зеркалом" }
+                    p class="about__quote script" { "Утром без борьбы с зеркалом" }
                 }
             }
         }
