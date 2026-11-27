@@ -238,11 +238,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .about__text p { margin-top: 1.2em; max-width: 32em; text-wrap: pretty; }
 .about__text .title + p { margin-top: 1.5em; }
 .about__side { display: grid; justify-items: center; gap: clamp(20px, 2vw, 32px); }
-.about__caption {
-  position: relative; z-index: 3; max-width: 94%;
-  font-size: clamp(2rem, 1.45rem + 2.4vw, 3.3rem); text-align: center; text-wrap: balance;
-  rotate: -5deg; text-shadow: 0 2px 12px var(--night), 0 2px 26px var(--night);
-}
+.about__quote { position: relative; z-index: 3; rotate: -5deg; text-align: center; text-shadow: 0 2px 26px rgba(19, 16, 21, .85); }
 
 /* No frame: the portrait belongs to the same world as everything else on the page. She stands
    behind a lighter pane of glass with the flowers behind her; her head breaks the pane's top edge
